@@ -1,27 +1,33 @@
-import React from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
-import useFetchImages from './CustomHook';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 
 const Gallery = () => {
-  const { images, loading } = useFetchImages();
-  const { language } = useLanguage();
+  const { translations } = useLanguage();
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const nekos = await Promise.all(Array.from({ length: 6 }).map(() =>
+        axios.get('https://nekos.life/api/v2/img/neko')
+      ));
+      setImages(nekos.map(response => response.data.url));
+    };
+
+    fetchImages();
+  }, []);
 
   return (
-    <Container>
-      <h1 className="text-center">{language === 'en' ? 'Gallery' : 'გალერეა'}</h1>
-      <Row>
-        {loading ? (
-          <Spinner animation="border" />
-        ) : (
-          images.map((url, index) => (
-            <Col key={index} xs={12} sm={6} md={4}>
-              <img src={url} alt={`neko-${index}`} className="img-fluid" />
-            </Col>
-          ))
-        )}
-      </Row>
-    </Container>
+    <div className="gallery-container">
+      <h1>{translations.galleryHeader}</h1>
+      <div className="row">
+        {images.map((url, index) => (
+          <div key={index} className="col-md-4 gallery-item">
+            <img src={url} alt={`Neko ${index}`} className="img-fluid" />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
