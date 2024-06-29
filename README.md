@@ -4,11 +4,32 @@ This is a simple React application that demonstrates the use of React Hooks, Rea
 
 ## Features
 
-- Responsive design using Bootstrap
-- Dark theme toggle
-- Language translation switch (English and Georgian)
-- Navigation using React Router
-- Custom hook for fetching images from an API
+- **Dark Theme Toggle:**
+  - Toggle between light and dark themes using the button in the navbar.
+
+- **Language Switcher:**
+  - Switch between English and Georgian languages using the button in the navbar.
+
+- **Gallery Page:**
+  - Displays images fetched from the Nekos API.
+
+- **Responsive Design:**
+  - The application is responsive and works well on various devices.
+
+## Project Structure
+
+- `src/`
+  - `components/`
+    - `Navbar.js`
+    - `Home.js`
+    - `Gallery.js`
+    - `About.js`
+  - `context/`
+    - `ThemeContext.js`
+    - `LanguageContext.js`
+  - `App.js`
+  - `App.css`
+  - `index.js`
 
 ## Tools Used
 
